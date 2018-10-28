@@ -30,6 +30,6 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_invoice_id
-    assert_equal 5, @invoice_i.find_all_by_invoice_id.count 
+    assert_equal 8, @invoice_i.find_all_by_invoice_id(1).count
   end
 end
