@@ -9,8 +9,8 @@ class InvoiceItemTest < Minitest::Test
                     :invoice_id => 8,
                     :quantity => 1,
                     :unit_price => BigDecimal.new(10.99, 4),
-                    :created_at => Time.now,
-                    :updated_at => Time.now
+                    :created_at => '2016-01-11 09:34:06 UTC',
+                    :updated_at => '2007-06-04 21:35:10 UTC'
                                     })
   end
 
@@ -32,5 +32,13 @@ class InvoiceItemTest < Minitest::Test
 
   def test_it_returns_quantity
     assert_equal 1, @invoice_item.quantity
+  end
+
+  def test_it_can_return_unit_price
+    assert_equal 10.99, @invoice_item.unit_price
+  end
+
+  def test_it_can_update_created_at
+    assert_equal '2016-01-11 09:34:06 UTC', @invoice_item.created_at
   end
 end
