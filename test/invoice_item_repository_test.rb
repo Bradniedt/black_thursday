@@ -24,4 +24,8 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_find_by_id
     assert_instance_of InvoiceItem, @invoice_i.find_by_id(1)
   end
+
+  def test_it_can_find_all_by_item_id
+    assert_equal 5, @invoice_i.find_all_by_item_id(263519844).count
+  end
 end
