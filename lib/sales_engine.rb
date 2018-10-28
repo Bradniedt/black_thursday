@@ -2,20 +2,24 @@ require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/invoice_repository'
+require_relative '../lib/invoice_item_repository'
 require 'csv'
 class SalesEngine
-  attr_reader :items, :merchants, :analyst, :invoices
+  attr_reader :items, :merchants, :analyst, :invoices, :invoice_items
   def initialize(data)
     @item_data = CSV.open(data[:items], headers: true, header_converters: :symbol)
     @merchant_data = CSV.open(data[:merchants], headers: true, header_converters: :symbol)
     @invoice_data = CSV.open(data[:invoices], headers: true, header_converters: :symbol)
+    @invoice_item_data = CSV.open(data[:invoice_items], headers: true, header_converters: :symbol)
     @items_collection = []
     @merchants_collection = []
     @invoice_collection = []
+    @invoice_item_collection = []
     @items      = ItemRepository.new(create_items)
     @merchants  = MerchantRepository.new(create_merchants)
     @invoices   = InvoiceRepository.new(create_invoices)
     @analyst    = SalesAnalyst.new(@items, @merchants)
+    @invoice_items = InvoiceItemRepository.new(create_invoice_items)
   end
 
   def self.from_csv(data)
@@ -62,5 +66,19 @@ class SalesEngine
                                           } )
     end
     @invoice_collection
+  end
+
+  def create_invoice_items
+    @invoice_item_data.each do |row|
+      @invoice_item_collection << InvoiceItem.new( {id: row[:id].to_i,
+                                                    item_id: row[:item_id].to_i,
+                                                    invoice_id: row[:invoice_id].to_i,
+                                                    quantity: row[:quantity].to_i,
+                                                    unit_price: big_decimal_converter(row[:unit_price]),
+                                                    created_at: row[:created_at].to_s,
+                                                    updated_at: row[:updated_at].to_s
+                                                    } )
+    end
+    @invoice_item_collection
   end
 end

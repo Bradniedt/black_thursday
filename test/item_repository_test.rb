@@ -5,14 +5,14 @@ require_relative '../lib/sales_engine'
 class ItemRepositoryTest < Minitest::Test
   def setup
     se = SalesEngine.from_csv( {
-        :items      => "./data/items.csv",
-        :merchants  => "./data/merchants.csv"
+        :items      => './data/items.csv',
+        :merchants  => './data/merchants.csv'
                              } )
     @ir = se.items
     @time_now = Time.now
     @updated_time = Time.now
   end
-  
+
   def test_it_exists
     assert_instance_of ItemRepository, @ir
   end
