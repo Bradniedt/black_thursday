@@ -28,4 +28,8 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_item_id
     assert_equal 164, @invoice_i.find_all_by_item_id(263519844).count
   end
+
+  def test_it_can_find_all_by_invoice_id
+    assert_equal 5, @invoice_i.find_all_by_invoice_id.count 
+  end
 end
