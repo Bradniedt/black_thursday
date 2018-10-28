@@ -16,4 +16,8 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_exists
     assert_instance_of InvoiceItemRepository, @invoice_i
   end
+
+  def test_it_can_get_all_invoice_items
+    assert_equal 21830, @invoice_i.all.count  
+  end
 end
