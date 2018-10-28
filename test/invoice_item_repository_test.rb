@@ -32,4 +32,14 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_invoice_id
     assert_equal 8, @invoice_i.find_all_by_invoice_id(1).count
   end
+
+  def test_it_can_create_a_new_invoice_item
+    attributes = {
+      item_id: '263546142',
+      invoice_id: '4',
+      quantity: '3',
+      unit_price: '37333',
+    }
+    assert_instance_of InvoiceItem, @invoice_i.create(attributes)
+  end
 end
