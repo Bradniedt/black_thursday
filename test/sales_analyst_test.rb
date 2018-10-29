@@ -63,4 +63,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_return_top_merchants_by_invoice_count
     assert_equal 12, @sa.top_merchants_by_invoice_count.count
   end
+
+  def test_it_can_return_bottom_merchants_by_invoice_count
+    assert_equal 1, @sa.bottom_merchants_by_invoice_count.count 
+  end
 end
