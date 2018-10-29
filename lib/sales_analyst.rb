@@ -105,4 +105,12 @@ class SalesAnalyst
       (item.unit_price_to_dollars - average_price) > (standard_dev * 2)
     end
   end
+
+  def average_invoices_per_merchant
+    (count_all_invoices / count_all_merchants).round(2)
+  end
+
+  def count_all_invoices
+    @invoices.all.count.round(2)
+  end
 end
