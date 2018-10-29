@@ -7,8 +7,8 @@ class TransationTest < Minitest::Test
                           :credit_card_number => "4242424242424242",
                           :credit_card_expiration_date => "0220",
                           :result => "success",
-                          :created_at => Time.now,
-                          :updated_at => Time.now
+                          :created_at => '2016-01-11 09:34:06 UTC',
+                          :updated_at => '2007-06-04 21:35:10 UTC'
                           })
   end
 
@@ -34,5 +34,10 @@ class TransationTest < Minitest::Test
 
   def test_result_returns_able_to_change
     assert_equal "success", @t.result
+  end
+
+  def test_it_can_return_updated_and_created_method
+    assert_equal '2016-01-11 09:34:06 UTC', @t.created_at
+    assert_equal '2007-06-04 21:35:10 UTC', @t.updated_at
   end
 end
