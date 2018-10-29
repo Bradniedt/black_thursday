@@ -161,4 +161,33 @@ class SalesAnalyst
     day = Date.parse(date).cwday
     days[day]
   end
+
+  def average_days
+    average = (@invoices.all.count.to_f / 7.00).round(2)
+  end
+
+  def total_days
+    days_count = { 'Monday' => 0, 'Tuesday' => 0, 'Wednesday' => 0,
+             'Thursday' => 0, 'Friday' => 0, 'Saturday' => 0,
+             'Sunday' => 0 }
+    @invoices.all.map do |invoice|
+      day = date_to_days(invoice.created_at)
+      days_count[day] += 1
+    end
+    days_count
+  end
+
+  def invoice_days_standard_deviation
+    average = average_days
+    differences = total_days.map do |day, value|
+      diff = (value - average)
+      diff * diff
+    end
+    total = 0
+    differences.each do |num|
+      total += num
+    end
+    (Math.sqrt(total / 6)).round(2)
+  end
+
 end

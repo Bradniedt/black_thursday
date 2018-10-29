@@ -71,4 +71,12 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_convert_date_to_days
     assert_equal 'Monday', @sa.date_to_days('2018-10-29')
   end
+
+  def test_it_can_find_average_day_value
+    assert_equal 712.14, @sa.average_days
+  end
+
+  def test_it_can_find_standard_deviation_for_invoice_created_at
+    assert_equal 18.07, @sa.invoice_days_standard_deviation
+  end
 end
