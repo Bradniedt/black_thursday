@@ -25,4 +25,8 @@ class TransactionRepositoryTest < Minitest::Test
   def test_it_can_find_by_id
     assert_instance_of Transaction, @transaction.find_by_id(10)
   end
+
+  def test_it_can_find_all_by_invoice_id
+    assert_equal 2, @transaction.find_all_by_invoice_id(2179).count
+  end
 end
