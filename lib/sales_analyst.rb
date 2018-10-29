@@ -113,4 +113,22 @@ class SalesAnalyst
   def count_all_invoices
     @invoices.all.count.round(2)
   end
+
+  def average_invoices_per_merchant_standard_deviation
+    avg = average_invoices_per_merchant
+    counts = []
+    @merchants.all.map do |merchant|
+      x = merchant.id
+      y = invoices.find_all_by_merchant_id(x)
+      counts << (y.count - avg).to_f
+    end
+    sum = 0.00
+    squares = counts.map do |num|
+      num * num
+    end
+    squares.each do |square|
+      sum += square
+    end
+    (Math.sqrt(sum / (count_all_merchants - 1))).round(2)
+  end
 end
