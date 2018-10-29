@@ -45,4 +45,8 @@ class InvoiceItemTest < Minitest::Test
   def test_it_can_return_updated_at
     assert_equal '2007-06-04 21:35:10 UTC', @invoice_item.updated_at
   end
+
+  def test_it_can_return_unit_price_to_dollars
+    assert_equal 10.99, @invoice_item.unit_price_to_dollars
+  end
 end
