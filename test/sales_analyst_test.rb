@@ -55,4 +55,28 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_average_invoices_per_merchant
     assert_equal 10.49, @sa.average_invoices_per_merchant
   end
+
+  def test_it_can_return_invoices_per_merchant_standard_deviation
+    assert_equal 3.29, @sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_it_can_return_top_merchants_by_invoice_count
+    assert_equal 12, @sa.top_merchants_by_invoice_count.count
+  end
+
+  def test_it_can_return_bottom_merchants_by_invoice_count
+    assert_equal 4, @sa.bottom_merchants_by_invoice_count.count
+  end
+
+  def test_it_can_convert_date_to_days
+    assert_equal 'Monday', @sa.date_to_days('2018-10-29')
+  end
+
+  def test_it_can_find_average_day_value
+    assert_equal 712.14, @sa.average_days
+  end
+
+  def test_it_can_find_standard_deviation_for_invoice_created_at
+    assert_equal 18.07, @sa.invoice_days_standard_deviation
+  end
 end

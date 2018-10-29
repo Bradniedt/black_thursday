@@ -1,6 +1,7 @@
 require_relative '../lib/sales_engine'
 require 'bigdecimal'
 require 'mathn'
+require 'date'
 class SalesAnalyst
   attr_reader     :items, :merchants, :invoices
   def initialize(items, merchants, invoices)
@@ -105,4 +106,88 @@ class SalesAnalyst
       (item.unit_price_to_dollars - average_price) > (standard_dev * 2)
     end
   end
+
+  def average_invoices_per_merchant
+    (count_all_invoices / count_all_merchants).round(2)
+  end
+
+  def count_all_invoices
+    @invoices.all.count.round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    avg = average_invoices_per_merchant
+    counts = []
+    @merchants.all.map do |merchant|
+      x = merchant.id
+      y = invoices.find_all_by_merchant_id(x)
+      counts << (y.count - avg).to_f
+    end
+    sum = 0.00
+    squares = counts.map do |num|
+      num * num
+    end
+    squares.each do |square|
+      sum += square
+    end
+    (Math.sqrt(sum / (count_all_merchants - 1))).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    standard_dev = average_invoices_per_merchant_standard_deviation
+    average_invoice_count = average_invoices_per_merchant
+    @merchants.all.find_all do |merchant|
+      id = merchant.id
+      counter = @invoices.find_all_by_merchant_id(id)
+      (counter.count - average_invoice_count) > (standard_dev * 2)
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    standard_dev = average_invoices_per_merchant_standard_deviation
+    average_invoice_count = average_invoices_per_merchant
+    doubled_standard_dev = standard_dev * 2
+    @merchants.all.find_all do |merchant|
+      id = merchant.id
+      counter = @invoices.find_all_by_merchant_id(id)
+      (counter.count) < (average_invoice_count - doubled_standard_dev)
+    end
+  end
+
+  def date_to_days(date)
+    days = { 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday',
+             4 => 'Thursday', 5 => 'Friday', 6 => 'Saturday',
+             7 => 'Sunday' }
+    day = Date.parse(date).cwday
+    days[day]
+  end
+
+  def average_days
+    average = (@invoices.all.count.to_f / 7.00).round(2)
+  end
+
+  def total_days
+    days_count = { 'Monday' => 0, 'Tuesday' => 0, 'Wednesday' => 0,
+             'Thursday' => 0, 'Friday' => 0, 'Saturday' => 0,
+             'Sunday' => 0 }
+    @invoices.all.map do |invoice|
+      day = date_to_days(invoice.created_at)
+      days_count[day] += 1
+    end
+    days_count
+  end
+
+  def invoice_days_standard_deviation
+    average = average_days
+    differences = total_days.map do |day, value|
+      diff = (value - average)
+      diff * diff
+    end
+    total = 0
+    differences.each do |num|
+      total += num
+    end
+    (Math.sqrt(total / 6)).round(2)
+  end
+
 end
