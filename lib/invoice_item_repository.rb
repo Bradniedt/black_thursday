@@ -33,8 +33,7 @@ class InvoiceItemRepository
                                     quantity: attributes[:quantity].to_i,
                                     unit_price: attributes[:unit_price],
                                     created_at: Time.now.to_s,
-                                    updated_at: Time.now.to_s
-                                  } )
+                                    updated_at: Time.now.to_s } )
     @collection << new_object
     new_object
   end
@@ -42,10 +41,10 @@ class InvoiceItemRepository
   def update(id, attributes)
     being_updated = find_by_id(id)
     if being_updated
-      if attributes.has_key?(:quantity)
+      if attributes.key?(:quantity)
         being_updated.quantity = attributes[:quantity].to_i
       end
-      if attributes.has_key?(:unit_price)
+      if attributes.key?(:unit_price)
         new_price = big_decimal_converter(attributes[:unit_price])
         being_updated.unit_price = new_price
       end
@@ -57,5 +56,4 @@ class InvoiceItemRepository
     number = price.to_f / 100
     BigDecimal.new(number, significant_digits)
   end
-
 end

@@ -18,7 +18,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_get_all_invoice_items
-    assert_equal 21830, @invoice_i.all.count
+    assert_equal 21_830, @invoice_i.all.count
   end
 
   def test_it_can_find_by_id
@@ -38,7 +38,8 @@ class MerchantRepositoryTest < Minitest::Test
       item_id: '263546142',
       invoice_id: '4',
       quantity: '3',
-      unit_price: '37333' }
+      unit_price: '37333'
+                 }
     assert_instance_of InvoiceItem, @invoice_i.create(attributes)
   end
 
@@ -46,7 +47,7 @@ class MerchantRepositoryTest < Minitest::Test
     attributes = {
       quantity: '5',
       unit_price: '1099'
-    }
+                 }
     @invoice_i.update(30, attributes)
     assert_equal 5, @invoice_i.find_by_id(30).quantity
     assert_equal 10.99, @invoice_i.find_by_id(30).unit_price_to_dollars
@@ -57,9 +58,10 @@ class MerchantRepositoryTest < Minitest::Test
       item_id: '263546142',
       invoice_id: '4',
       quantity: '3',
-      unit_price: '37333' }
+      unit_price: '37333'
+                 }
     @invoice_i.create(attributes)
     @invoice_i.delete(4)
-    assert_equal 21830, @invoice_i.all.count
+    assert_equal 21_830, @invoice_i.all.count
   end
 end
