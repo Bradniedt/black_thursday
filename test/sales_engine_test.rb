@@ -8,6 +8,8 @@ require_relative '../lib/invoice'
 require_relative '../lib/invoice_repository'
 require_relative '../lib/invoice_item'
 require_relative '../lib/invoice_item_repository'
+require_relative '../lib/transaction'
+require_relative '../lib/transaction_repository'
 require 'csv'
 class SalesEngineTest < Minitest::Test
   def setup
@@ -15,7 +17,8 @@ class SalesEngineTest < Minitest::Test
         :items          => './data/items.csv',
         :merchants      => './data/merchants.csv',
         :invoices       => './data/invoices.csv',
-        :invoice_items  => './data/invoice_items.csv'
+        :invoice_items  => './data/invoice_items.csv',
+        :transactions   => './data/transactions.csv'
                                 } )
   end
 
@@ -50,5 +53,9 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_create_invoice_item_repository
     assert_instance_of InvoiceItemRepository, @se.invoice_items
+  end
+
+  def test_it_can_create_transaction_repository
+    assert_instance_of TransactionRepository, @se.transactions
   end
 end
