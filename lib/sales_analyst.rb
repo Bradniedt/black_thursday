@@ -167,13 +167,13 @@ class SalesAnalyst
   end
 
   def total_days
-    days_count = { 'Monday' => 0,
-                   'Tuesday' => 0,
-                   'Wednesday' => 0,
-                   'Thursday' => 0,
-                   'Friday' => 0,
-                   'Saturday' => 0,
-                   'Sunday' => 0 }
+    days_count = { 'Monday'     => 0,
+                   'Tuesday'    => 0,
+                   'Wednesday'  => 0,
+                   'Thursday'   => 0,
+                   'Friday'     => 0,
+                   'Saturday'   => 0,
+                   'Sunday'     => 0 }
     @invoices.all.map do |invoice|
       day = date_to_days(invoice.created_at)
       days_count[day] += 1

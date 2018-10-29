@@ -79,4 +79,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_standard_deviation_for_invoice_created_at
     assert_equal 18.07, @sa.invoice_days_standard_deviation
   end
+
+  def test_it_can_count_top_days_by_invoice
+    assert_equal ["Sunday", "Saturday"], @sa.top_days_by_invoice_count
+  end
 end
