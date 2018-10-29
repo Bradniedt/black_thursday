@@ -1,6 +1,7 @@
 class Transaction
   attr_accessor :credit_card_number,
-                :credit_card_expiration_date
+                :credit_card_expiration_date,
+                :result
   attr_reader   :id,
                 :invoice_id
   def initialize(tran_data)
@@ -8,6 +9,6 @@ class Transaction
     @invoice_id = tran_data[:invoice_id]
     @credit_card_number = tran_data[:credit_card_number]
     @credit_card_expiration_date = tran_data[:credit_card_expiration_date]
-    
+    @result     = tran_data[:result]
   end
 end
