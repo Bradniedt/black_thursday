@@ -141,4 +141,15 @@ class SalesAnalyst
       (counter.count - average_invoice_count) > (standard_dev * 2)
     end
   end
+
+  def bottom_merchants_by_invoice_count
+    standard_dev = average_invoices_per_merchant_standard_deviation
+    average_invoice_count = average_invoices_per_merchant
+    doubled_standard_dev = standard_dev * 2
+    @merchants.all.find_all do |merchant|
+      id = merchant.id
+      counter = @invoices.find_all_by_merchant_id(id)
+      (counter.count) < (average_invoice_count - doubled_standard_dev)
+    end
+  end
 end
