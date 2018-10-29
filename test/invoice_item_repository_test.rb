@@ -41,4 +41,14 @@ class MerchantRepositoryTest < Minitest::Test
       unit_price: '37333' }
     assert_instance_of InvoiceItem, @invoice_i.create(attributes)
   end
+
+  def test_it_can_update_an_invoice_item
+    attributes = {
+      quantity: '5',
+      unit_price: '1099'
+    }
+    @invoice_i.update(30, attributes)
+    assert_equal 5, @invoice_i.find_by_id(30).quantity
+    assert_equal 10.99, @invoice_i.find_by_id(30).unit_price
+  end
 end
