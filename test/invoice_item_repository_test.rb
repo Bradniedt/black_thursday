@@ -38,8 +38,7 @@ class MerchantRepositoryTest < Minitest::Test
       item_id: '263546142',
       invoice_id: '4',
       quantity: '3',
-      unit_price: '37333',
-    }
+      unit_price: '37333' }
     assert_instance_of InvoiceItem, @invoice_i.create(attributes)
   end
 end
