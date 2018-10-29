@@ -21,4 +21,8 @@ class CustomerTest < Minitest::Test
   def test_it_returns_first_name_able_to_change
     assert_equal "Joan", @c.first_name
   end
+
+  def test_it_returns_last_name_able_to_change
+    assert_equal "Clarke", @c.last_name
+  end
 end
