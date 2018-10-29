@@ -2,14 +2,14 @@ require_relative './helper'
 require_relative '../lib/transaction'
 class TransationTest < Minitest::Test
   def setup
-    @t = Transaction.new({:id => 6,
+    @t = Transaction.new( {:id => 6,
                           :invoice_id => 8,
                           :credit_card_number => "4242424242424242",
                           :credit_card_expiration_date => "0220",
                           :result => "success",
                           :created_at => '2016-01-11 09:34:06 UTC',
                           :updated_at => '2007-06-04 21:35:10 UTC'
-                          })
+                           } )
   end
 
   def test_it_exists
