@@ -152,4 +152,6 @@ class SalesAnalyst
       (counter.count) < (average_invoice_count - doubled_standard_dev)
     end
   end
+
+  
 end

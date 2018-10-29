@@ -65,6 +65,10 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_bottom_merchants_by_invoice_count
-    assert_equal 4, @sa.bottom_merchants_by_invoice_count.count 
+    assert_equal 4, @sa.bottom_merchants_by_invoice_count.count
+  end
+
+  def test_it_can_convert_date_to_days
+    assert_equal 'Monday', @sa.date_to_days('2018-10-29')
   end
 end
