@@ -29,4 +29,8 @@ class TransactionRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_invoice_id
     assert_equal 2, @transaction.find_all_by_invoice_id(2179).count
   end
+
+  def test_it_can_find_all_by_cc_number
+    assert_equal 1, @transaction.find_all_by_credit_card_number(4068631943231473).count
+  end
 end
