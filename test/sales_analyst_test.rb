@@ -55,4 +55,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_average_invoices_per_merchant
     assert_equal 10.49, @sa.average_invoices_per_merchant
   end
+
+  def test_it_can_return_invoices_per_merchant_standard_deviation
+    assert_equal 3.29, @sa.average_invoices_per_merchant_standard_deviation
+  end
 end
