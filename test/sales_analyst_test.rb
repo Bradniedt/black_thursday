@@ -6,7 +6,8 @@ class SalesAnalystTest < Minitest::Test
         :items          => './data/items.csv',
         :merchants      => './data/merchants.csv',
         :invoices       => './data/invoices.csv',
-        :invoice_items  => './data/invoice_items.csv'
+        :invoice_items  => './data/invoice_items.csv',
+        :transactions   => './data/transactions.csv'
                                 } )
     @sa = se.analyst
   end
@@ -49,5 +50,9 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_return_golden_items
     assert_equal 5, @sa.golden_items.length
+  end
+
+  def test_it_can_find_average_invoices_per_merchant
+    assert_equal 10.49, @sa.average_invoices_per_merchant
   end
 end

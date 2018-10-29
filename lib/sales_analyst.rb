@@ -2,10 +2,11 @@ require_relative '../lib/sales_engine'
 require 'bigdecimal'
 require 'mathn'
 class SalesAnalyst
-  attr_reader     :items, :merchants
-  def initialize(items, merchants)
+  attr_reader     :items, :merchants, :invoices
+  def initialize(items, merchants, invoices)
     @items      = items
     @merchants  = merchants
+    @invoices = invoices
   end
 
   def count_all_items

@@ -23,7 +23,7 @@ class SalesEngine
     @items      = ItemRepository.new(create_items)
     @merchants  = MerchantRepository.new(create_merchants)
     @invoices   = InvoiceRepository.new(create_invoices)
-    @analyst    = SalesAnalyst.new(@items, @merchants)
+    @analyst    = SalesAnalyst.new(@items, @merchants, @invoices)
     @invoice_items = InvoiceItemRepository.new(create_invoice_items)
     @transactions = TransactionRepository.new(create_transactions)
   end
@@ -96,8 +96,8 @@ class SalesEngine
       transaction_collection << Transaction.new( {
             id: row[:id].to_i,
             invoice_id: row[:invoice_id].to_i,
-            credit_card_number: row[:credit_card_number].to_i,
-            credit_card_expiration_date: row[:credit_card_expiration_date].to_i,
+            credit_card_number: row[:credit_card_number].to_s,
+            credit_card_expiration_date: row[:credit_card_expiration_date].to_s,
             result: row[:result].to_s,
             created_at: row[:created_at].to_s,
             updated_at: row[:updated_at].to_s
