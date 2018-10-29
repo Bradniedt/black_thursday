@@ -2,10 +2,10 @@ class InvoiceItem
   attr_reader     :id,
                   :item_id,
                   :invoice_id,
-                  :quantity,
-                  :unit_price,
                   :created_at,
                   :updated_at
+  attr_accessor   :quantity,
+                  :unit_price
   def initialize(invoice_data)
     @id         = invoice_data[:id]
     @item_id    = invoice_data[:item_id]
@@ -14,5 +14,9 @@ class InvoiceItem
     @unit_price = invoice_data[:unit_price]
     @created_at = invoice_data[:created_at]
     @updated_at = invoice_data[:updated_at]
+  end
+
+  def unit_price_to_dollars
+    @unit_price.to_f
   end
 end
