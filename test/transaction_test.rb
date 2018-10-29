@@ -23,4 +23,16 @@ class TransationTest < Minitest::Test
   def test_it_has_invoice_id
     assert_equal 8, @t.invoice_id
   end
+
+  def test_credit_card_number_is_returned_able_to_change
+    assert_equal "4242424242424242", @t.credit_card_number
+  end
+
+  def test_credit_card_expiration_date_is_returned_able_to_change
+    assert_equal "0220", @t.credit_card_expiration_date
+  end
+
+  def test_result_returns_able_to_change
+    assert_equal "success", @t.result
+  end
 end
