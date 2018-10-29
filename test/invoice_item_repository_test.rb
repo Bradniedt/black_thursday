@@ -51,4 +51,15 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 5, @invoice_i.find_by_id(30).quantity
     assert_equal 10.99, @invoice_i.find_by_id(30).unit_price_to_dollars
   end
+
+  def test_it_can_delete_an_invoice_item
+    attributes = {
+      item_id: '263546142',
+      invoice_id: '4',
+      quantity: '3',
+      unit_price: '37333' }
+    @invoice_i.create(attributes)
+    @invoice_i.delete(4)
+    assert_equal 21830, @invoice_i.all.count
+  end
 end
