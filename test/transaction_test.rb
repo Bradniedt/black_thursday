@@ -15,4 +15,8 @@ class TransationTest < Minitest::Test
   def test_it_exists
     assert_instance_of Transaction, @t
   end
+
+  def test_item_has_id
+    assert_equal 6, @t.id
+  end
 end
