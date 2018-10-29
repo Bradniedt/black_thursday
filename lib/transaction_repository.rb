@@ -42,4 +42,19 @@ class TransactionRepository
     @collection << new_object
     new_object
   end
+
+  def update(id, attributes)
+    being_updated = find_by_id(id)
+    if being_updated
+      if attributes.key?(:credit_card_number)
+        being_updated.credit_card_number = attributes[:credit_card_number].to_i
+      end
+      if attributes.key?(:credit_card_expiration_date)
+        being_updated.credit_card_expiration_date = attributes[:credit_card_expiration_date]
+      end
+      if attributes.key?(:result)
+        being_updated.result = attributes[:result]
+      end
+    end
+  end
 end

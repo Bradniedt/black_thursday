@@ -47,4 +47,20 @@ class TransactionRepositoryTest < Minitest::Test
                   }
     assert_instance_of Transaction, @transaction.create(attributes)
   end
+
+  def test_it_can_update_an_transaction
+    @transaction.update(1, {
+                  credit_card_number: '5757575757575757',
+                  credit_card_expiration_date: '0121',
+                  result: 'failed'
+                      })
+    assert_equal 5757575757575757, @transaction.find_by_id(1).credit_card_number
+    assert_equal '0121', @transaction.find_by_id(1).credit_card_expiration_date
+    assert_equal 'failed', @transaction.find_by_id(1).result
+  end
+
+  def test_it_can_delete_a_transaction
+    @transaction.delete(1)
+    assert_equal 4984, @transaction.all.count
+  end
 end
