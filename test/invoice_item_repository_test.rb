@@ -49,6 +49,6 @@ class MerchantRepositoryTest < Minitest::Test
     }
     @invoice_i.update(30, attributes)
     assert_equal 5, @invoice_i.find_by_id(30).quantity
-    assert_equal 10.99, @invoice_i.find_by_id(30).unit_price
+    assert_equal 10.99, @invoice_i.find_by_id(30).unit_price_to_dollars
   end
 end
