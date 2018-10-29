@@ -96,7 +96,7 @@ class SalesAnalyst
     diff_array.each do |diff|
     accumulator += diff
     end
-    (Math.sqrt(accumulator / diff_array.length)).round(2)
+    Math.sqrt(accumulator / diff_array.length).round(2)
   end
 
   def golden_items
@@ -130,7 +130,7 @@ class SalesAnalyst
     squares.each do |square|
       sum += square
     end
-    (Math.sqrt(sum / (count_all_merchants - 1))).round(2)
+    Math.sqrt(sum / (count_all_merchants - 1)).round(2)
   end
 
   def top_merchants_by_invoice_count
@@ -150,7 +150,7 @@ class SalesAnalyst
     @merchants.all.find_all do |merchant|
       id = merchant.id
       counter = @invoices.find_all_by_merchant_id(id)
-      (counter.count) < (average_invoice_count - doubled_standard_dev)
+      counter.count < (average_invoice_count - doubled_standard_dev)
     end
   end
 
@@ -163,13 +163,17 @@ class SalesAnalyst
   end
 
   def average_days
-    average = (@invoices.all.count.to_f / 7.00).round(2)
+    (@invoices.all.count.to_f / 7.00).round(2)
   end
 
   def total_days
-    days_count = { 'Monday' => 0, 'Tuesday' => 0, 'Wednesday' => 0,
-             'Thursday' => 0, 'Friday' => 0, 'Saturday' => 0,
-             'Sunday' => 0 }
+    days_count = { 'Monday' => 0,
+                   'Tuesday' => 0,
+                   'Wednesday' => 0,
+                   'Thursday' => 0,
+                   'Friday' => 0,
+                   'Saturday' => 0,
+                   'Sunday' => 0 }
     @invoices.all.map do |invoice|
       day = date_to_days(invoice.created_at)
       days_count[day] += 1
@@ -187,7 +191,6 @@ class SalesAnalyst
     differences.each do |num|
       total += num
     end
-    (Math.sqrt(total / 6)).round(2)
+    Math.sqrt(total / 6).round(2)
   end
-
 end
