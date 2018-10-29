@@ -1,6 +1,7 @@
 require_relative '../lib/sales_engine'
 require 'bigdecimal'
 require 'mathn'
+require 'date'
 class SalesAnalyst
   attr_reader     :items, :merchants, :invoices
   def initialize(items, merchants, invoices)
@@ -153,5 +154,11 @@ class SalesAnalyst
     end
   end
 
-  
+  def date_to_days(date)
+    days = { 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday',
+             4 => 'Thursday', 5 => 'Friday', 6 => 'Saturday',
+             7 => 'Sunday' }
+    day = Date.parse(date).cwday
+    days[day]
+  end
 end
