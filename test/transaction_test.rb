@@ -19,4 +19,8 @@ class TransationTest < Minitest::Test
   def test_item_has_id
     assert_equal 6, @t.id
   end
+
+  def test_it_has_invoice_id
+    assert_equal 8, @t.invoice_id
+  end
 end
