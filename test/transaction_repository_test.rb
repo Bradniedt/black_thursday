@@ -33,4 +33,18 @@ class TransactionRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_cc_number
     assert_equal 1, @transaction.find_all_by_credit_card_number(4068631943231473).count
   end
+
+  def test_it_can_find_all_by_result
+    assert_equal 827, @transaction.find_all_by_result('failed').count
+  end
+
+  def test_it_can_create_a_new_transaction
+    attributes = {
+                invoice_id: 4,
+                credit_card_number: '4747474747474747',
+                credit_card_expiration_date: '0320',
+                result: 'success'
+                  }
+    assert_instance_of Transaction, @transaction.create(attributes)
+  end
 end
