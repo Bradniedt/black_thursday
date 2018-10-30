@@ -13,14 +13,10 @@ class SalesEngine
               :invoices,
               :invoice_items,
               :transactions,
-              :customers
+              :customers,
+              :data
   def initialize(data)
-    @item_data = CSV.open(data[:items], headers: true, header_converters: :symbol)
-    @merchant_data = CSV.open(data[:merchants], headers: true, header_converters: :symbol)
-    @invoice_data = CSV.open(data[:invoices], headers: true, header_converters: :symbol)
-    @invoice_item_data = CSV.open(data[:invoice_items], headers: true, header_converters: :symbol)
-    @transaction_data  = CSV.open(data[:transactions], headers: true, header_converters: :symbol)
-    @customer_data = CSV.open(data[:customers], headers: true, header_converters: :symbol)
+    @data = data
     @items_collection = []
     @merchants_collection = []
     @invoice_collection = []
@@ -41,7 +37,8 @@ class SalesEngine
   end
 
   def create_items
-    @item_data.each do |row|
+    item_data = CSV.open(data[:items], headers: true, header_converters: :symbol)
+    item_data.each do |row|
       @items_collection << Item.new( {
                id: row[:id].to_i,
                name: row[:name].to_s,
@@ -62,7 +59,8 @@ class SalesEngine
   end
 
   def create_merchants
-    @merchant_data.each do |row|
+    merchant_data = CSV.open(@data[:merchants], headers: true, header_converters: :symbol)
+    merchant_data.each do |row|
       @merchants_collection << Merchant.new( {id: row[:id].to_i,
                                              name: "#{row[:name]}"} )
     end
@@ -70,7 +68,8 @@ class SalesEngine
   end
 
   def create_invoices
-    @invoice_data.each do |row|
+    invoice_data = CSV.open(@data[:invoices], headers: true, header_converters: :symbol)
+    invoice_data.each do |row|
       @invoice_collection << Invoice.new( {id: row[:id].to_i,
                                           customer_id: row[:customer_id].to_i,
                                           merchant_id: row[:merchant_id].to_i,
@@ -83,7 +82,8 @@ class SalesEngine
   end
 
   def create_invoice_items
-    @invoice_item_data.each do |row|
+    invoice_item_data = CSV.open(@data[:invoice_items], headers: true, header_converters: :symbol)
+    invoice_item_data.each do |row|
       @invoice_item_collection << InvoiceItem.new( {id: row[:id].to_i,
                                                     item_id: row[:item_id].to_i,
                                                     invoice_id: row[:invoice_id].to_i,
@@ -97,7 +97,8 @@ class SalesEngine
   end
 
   def create_transactions
-    @transaction_data.each do |row|
+    transaction_data  = CSV.open(@data[:transactions], headers: true, header_converters: :symbol)
+    transaction_data.each do |row|
       @transaction_collection << Transaction.new( {
             id: row[:id].to_i,
             invoice_id: row[:invoice_id].to_i,
@@ -112,7 +113,8 @@ class SalesEngine
   end
 
   def create_customers
-    @customer_data.each do |row|
+    customer_data = CSV.open(@data[:customers], headers: true, header_converters: :symbol)
+    customer_data.each do |row|
       @customer_collection << Customer.new( {
             id: row[:id].to_i,
             first_name: row[:first_name].to_s,
