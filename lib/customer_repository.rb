@@ -25,11 +25,11 @@ class CustomerRepository
     end
     new_id = highest.id.to_i + 1
     new_object = Customer.new( {
-                    id: new_id,
-                    first_name: attributes[:first_name].to_i,
-                    last_name: attributes[:last_name].to_i,
-                    created_at: Time.now.to_s,
-                    updated_at: Time.now.to_s
+                                id: new_id,
+                                first_name: attributes[:first_name].to_i,
+                                last_name: attributes[:last_name].to_i,
+                                created_at: Time.now.to_s,
+                                updated_at: Time.now.to_s
                                 } )
     @collection << new_object
     new_object
