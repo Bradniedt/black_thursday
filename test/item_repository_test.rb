@@ -11,7 +11,7 @@ class ItemRepositoryTest < Minitest::Test
         :invoice_items  => './data/invoice_items.csv',
         :transactions   => './data/transactions.csv',
         :customers      => './data/customers.csv'
-                             } )
+                                } )
     @time_now = Time.now
     @updated_time = Time.now
   end

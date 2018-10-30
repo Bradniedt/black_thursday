@@ -12,7 +12,6 @@ class TransactionRepositoryTest < Minitest::Test
                                 :transactions   => './data/transactions.csv',
                                 :customers      => './data/customers.csv'
                                 } )
-
   end
 
   def test_it_exists
@@ -51,10 +50,10 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_it_can_update_a_transaction
     @se.transactions.update(1, {
-                  credit_card_number: '5757575757575757',
-                  credit_card_expiration_date: '0121',
-                  result: 'failed'
-                            } )
+                               credit_card_number: '5757575757575757',
+                               credit_card_expiration_date: '0121',
+                               result: 'failed'
+                               } )
     assert_equal 5757575757575757, @se.transactions.find_by_id(1).credit_card_number
     assert_equal '0121', @se.transactions.find_by_id(1).credit_card_expiration_date
     assert_equal :failed, @se.transactions.find_by_id(1).result
