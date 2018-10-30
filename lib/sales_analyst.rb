@@ -202,4 +202,16 @@ class SalesAnalyst
     end
     top_days.delete_if { |day|  day == nil }
   end
+
+  def invoice_status(status)
+    status_count = { pending: 0,
+                     shipped: 0,
+                     returned: 0 }
+    @invoices.all.map do |invoice|
+      if invoice.status == status.to_s
+        status_count[status] += 1
+      end
+    end
+    ((status_count[status].to_f / @invoices.all.count) * 100.00).round(2)
+  end
 end
