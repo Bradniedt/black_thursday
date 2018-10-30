@@ -32,11 +32,11 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_cc_number
-    assert_equal 1, @transaction.find_all_by_credit_card_number(4068631943231473).count
+    assert_equal 1, @transaction.find_all_by_credit_card_number('4068631943231473').count
   end
 
   def test_it_can_find_all_by_result
-    assert_equal 827, @transaction.find_all_by_result('failed').count
+    assert_equal 827, @transaction.find_all_by_result(:failed).count
   end
 
   def test_it_can_create_a_new_transaction
