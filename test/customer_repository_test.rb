@@ -18,4 +18,12 @@ class CustomerRepositoryTest < Minitest::Test
   def test_it_exists
     assert_instance_of CustomerRepository, @customer
   end
+
+  def test_it_can_get_all_customers
+    assert_equal 1000, @customer.all.count
+  end
+
+  def test_it_can_find_by_id
+    assert_instance_of Customer, @customer.find_by_id(3)
+  end
 end
