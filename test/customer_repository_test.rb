@@ -5,12 +5,12 @@ require_relative '../lib/customer_repository'
 class CustomerRepositoryTest < Minitest::Test
   def setup
     se = SalesEngine.from_csv( {
-                                :items          => './data/items.csv',
-                                :merchants      => './data/merchants.csv',
-                                :invoices       => './data/invoices.csv',
-                                :invoice_items  => './data/invoice_items.csv',
-                                :transactions   => './data/transactions.csv',
-                                :customers      => './data/customers.csv'
+                    :items          => './data/items.csv',
+                    :merchants      => './data/merchants.csv',
+                    :invoices       => './data/invoices.csv',
+                    :invoice_items  => './data/invoice_items.csv',
+                    :transactions   => './data/transactions.csv',
+                    :customers      => './data/customers.csv'
                                 } )
     @customer = se.customers
   end
@@ -50,5 +50,10 @@ class CustomerRepositoryTest < Minitest::Test
                          } )
     assert_equal 'Beef', @customer.find_by_id(1).first_name
     assert_equal 'Jerky', @customer.find_by_id(1).last_name
+  end
+
+  def test_it_can_delete_a_customer
+    @customer.delete(30)
+    assert_equal 999, @customer.all.count
   end
 end
