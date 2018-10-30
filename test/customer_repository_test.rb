@@ -34,4 +34,21 @@ class CustomerRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_last_name
     assert_equal 2, @customer.find_all_by_last_name('Toy').count
   end
+
+  def test_it_can_create_a_new_customer
+    attributes = {
+                first_name: 'Michael',
+                last_name: 'Jordan'
+                  }
+    assert_instance_of Customer, @customer.create(attributes)
+  end
+
+  def test_it_can_update_a_customer
+    @customer.update(1, {
+                  first_name: 'Beef',
+                  last_name:  'Jerky'
+                         } )
+    assert_equal 'Beef', @customer.find_by_id(1).first_name
+    assert_equal 'Jerky', @customer.find_by_id(1).last_name
+  end
 end
