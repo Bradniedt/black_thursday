@@ -39,11 +39,11 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_it_can_update_created_at
-    assert_equal '2016-01-11 09:34:06 UTC', @invoice_item.created_at
+    assert_equal '2016-01-11 09:34:06 UTC', @invoice_item.created_at.to_s
   end
 
   def test_it_can_return_updated_at
-    assert_equal '2007-06-04 21:35:10 UTC', @invoice_item.updated_at
+    assert_equal '2007-06-04 21:35:10 UTC', @invoice_item.updated_at.to_s
   end
 
   def test_it_can_return_unit_price_to_dollars

@@ -38,7 +38,7 @@ class TransationTest < Minitest::Test
   end
 
   def test_it_can_return_updated_and_created_method
-    assert_equal '2016-01-11 09:34:06 UTC', @t.created_at
-    assert_equal '2007-06-04 21:35:10 UTC', @t.updated_at
+    assert_equal '2016-01-11 09:34:06 UTC', @t.created_at.to_s
+    assert_equal '2007-06-04 21:35:10 UTC', @t.updated_at.to_s
   end
 end

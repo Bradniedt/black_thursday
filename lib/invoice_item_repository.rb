@@ -48,6 +48,7 @@ class InvoiceItemRepository
         new_price = big_decimal_converter(attributes[:unit_price])
         being_updated.unit_price = new_price
       end
+      being_updated.updated_at = Time.now
     end
   end
 

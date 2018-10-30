@@ -3,11 +3,13 @@ require 'bigdecimal'
 require 'mathn'
 require 'date'
 class SalesAnalyst
-  attr_reader     :items, :merchants, :invoices
-  def initialize(items, merchants, invoices)
+  attr_reader     :items, :merchants, :invoices, :transactions, :invoice_items
+  def initialize(items, merchants, invoices, transactions, invoice_items)
     @items      = items
     @merchants  = merchants
     @invoices = invoices
+    @transactions = transactions
+    @invoice_items = invoice_items
   end
 
   def count_all_items
@@ -217,5 +219,25 @@ class SalesAnalyst
       end
     end
     ((status_count[status].to_f / @invoices.all.count) * 100.00).round(2)
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    transactions.all.any? do |transaction|
+      transaction.invoice_id == invoice_id && transaction.result == :success
+    end
+  end
+
+  def invoice_total(invoice_id)
+    all_items = invoice_items.all.find_all do |invoice_item|
+      invoice_item.invoice_id == invoice_id
+    end
+    items_total = all_items.map do |invoice_item|
+      (invoice_item.quantity * invoice_item.unit_price_to_dollars).round(2)
+    end
+    final_total = 0
+    items_total.each do |total|
+      final_total += total
+    end
+    BigDecimal.new(final_total, final_total.to_s.length)
   end
 end

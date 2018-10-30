@@ -1,3 +1,4 @@
+require 'time'
 class Transaction
   attr_accessor :credit_card_number,
                 :credit_card_expiration_date,
@@ -10,9 +11,9 @@ class Transaction
     @id         = tran_data[:id]
     @invoice_id = tran_data[:invoice_id]
     @credit_card_number = tran_data[:credit_card_number]
-    @credit_card_expiration_date = tran_data[:credit_card_expiration_date]
+    @credit_card_expiration_date = tran_data[:credit_card_expiration_date].rjust(4, "0")
     @result     = tran_data[:result]
-    @created_at = tran_data[:created_at]
-    @updated_at = tran_data[:updated_at]
+    @created_at = Time.parse(tran_data[:created_at])
+    @updated_at = Time.parse(tran_data[:updated_at])
   end
 end

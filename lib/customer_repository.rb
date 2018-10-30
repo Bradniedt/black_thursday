@@ -8,14 +8,16 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(f_name)
+    first = f_name.downcase
     @collection.find_all do |customer|
-      customer.first_name == f_name
+      customer.first_name.downcase.include?(first)
     end
   end
 
   def find_all_by_last_name(l_name)
+    last = l_name.downcase
     @collection.find_all do |customer|
-      customer.last_name == l_name
+      customer.last_name.downcase.include?(last)
     end
   end
 
@@ -26,8 +28,8 @@ class CustomerRepository
     new_id = highest.id.to_i + 1
     new_object = Customer.new( {
                                 id: new_id,
-                                first_name: attributes[:first_name].to_i,
-                                last_name: attributes[:last_name].to_i,
+                                first_name: attributes[:first_name].to_s,
+                                last_name: attributes[:last_name].to_s,
                                 created_at: Time.now.to_s,
                                 updated_at: Time.now.to_s
                                 } )
@@ -44,6 +46,7 @@ class CustomerRepository
       if attributes.key?(:last_name)
         being_updated.last_name = attributes[:last_name]
       end
+      being_updated.updated_at = Time.now
     end
   end
 end
