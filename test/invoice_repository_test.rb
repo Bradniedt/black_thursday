@@ -41,7 +41,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_by_status
     assert_equal [], @invoices.find_all_by_status('old')
-    assert_equal 673, @invoices.find_all_by_status('returned').count
+    assert_equal 673, @invoices.find_all_by_status(:returned).count
   end
 
   def test_it_can_create_new_item

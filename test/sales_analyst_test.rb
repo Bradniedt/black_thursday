@@ -79,4 +79,14 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_standard_deviation_for_invoice_created_at
     assert_equal 18.07, @sa.invoice_days_standard_deviation
   end
+
+  def test_it_can_count_top_days_by_invoice
+    assert_equal ['Wednesday'], @sa.top_days_by_invoice_count
+  end
+
+  def test_it_can_calculate_percentage_of_all_statuses
+    assert_equal 29.55, @sa.invoice_status(:pending)
+    assert_equal 56.95, @sa.invoice_status(:shipped)
+    assert_equal 13.5, @sa.invoice_status(:returned)
+  end
 end
