@@ -193,4 +193,13 @@ class SalesAnalyst
     end
     Math.sqrt(total / 6).round(2)
   end
+
+  def top_days_by_invoice_count
+  top_days = total_days.map do |day, value|
+      if total_days[day] - invoice_days_standard_deviation > average_days
+        total_days.key(value)
+      end
+    end
+    top_days.delete_if { |day|  day == nil }
+  end
 end
