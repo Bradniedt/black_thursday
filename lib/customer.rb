@@ -1,3 +1,4 @@
+require 'time'
 class Customer
   attr_accessor :first_name,
                 :last_name,
@@ -8,7 +9,7 @@ class Customer
     @id         = cust_data[:id]
     @first_name = cust_data[:first_name]
     @last_name  = cust_data[:last_name]
-    @created_at = cust_data[:created_at]
-    @updated_at = cust_data[:updated_at]
+    @created_at = Time.parse(cust_data[:created_at])
+    @updated_at = Time.parse(cust_data[:updated_at])
   end
 end

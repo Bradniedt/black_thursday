@@ -23,6 +23,10 @@ class SalesEngine
     @customer_data = CSV.open(data[:customers], headers: true, header_converters: :symbol)
     @items_collection = []
     @merchants_collection = []
+    @invoice_collection = []
+    @invoice_item_collection = []
+    @customer_collection = []
+    @transaction_collection = []
     @items          = ItemRepository.new(create_items)
     @merchants      = MerchantRepository.new(create_merchants)
     @invoices       = InvoiceRepository.new(create_invoices)
@@ -66,9 +70,8 @@ class SalesEngine
   end
 
   def create_invoices
-    invoice_collection = []
     @invoice_data.each do |row|
-      invoice_collection << Invoice.new( {id: row[:id].to_i,
+      @invoice_collection << Invoice.new( {id: row[:id].to_i,
                                           customer_id: row[:customer_id].to_i,
                                           merchant_id: row[:merchant_id].to_i,
                                           status: row[:status].to_s,
@@ -76,13 +79,12 @@ class SalesEngine
                                           updated_at: row[:updated_at].to_s
                                           } )
     end
-    invoice_collection
+    @invoice_collection
   end
 
   def create_invoice_items
-    invoice_item_collection = []
     @invoice_item_data.each do |row|
-      invoice_item_collection << InvoiceItem.new( {id: row[:id].to_i,
+      @invoice_item_collection << InvoiceItem.new( {id: row[:id].to_i,
                                                     item_id: row[:item_id].to_i,
                                                     invoice_id: row[:invoice_id].to_i,
                                                     quantity: row[:quantity].to_i,
@@ -91,13 +93,12 @@ class SalesEngine
                                                     updated_at: row[:updated_at].to_s
                                                     } )
     end
-    invoice_item_collection
+    @invoice_item_collection
   end
 
   def create_transactions
-    transaction_collection = []
     @transaction_data.each do |row|
-      transaction_collection << Transaction.new( {
+      @transaction_collection << Transaction.new( {
             id: row[:id].to_i,
             invoice_id: row[:invoice_id].to_i,
             credit_card_number: row[:credit_card_number].to_s,
@@ -107,13 +108,12 @@ class SalesEngine
             updated_at: row[:updated_at].to_s
                                                   } )
     end
-    transaction_collection
+    @transaction_collection
   end
 
   def create_customers
-    customer_collection = []
     @customer_data.each do |row|
-      customer_collection << Customer.new( {
+      @customer_collection << Customer.new( {
             id: row[:id].to_i,
             first_name: row[:first_name].to_s,
             last_name: row[:last_name].to_s,
@@ -121,6 +121,6 @@ class SalesEngine
             updated_at: row[:updated_at].to_s
                                             } )
     end
-    customer_collection
+    @customer_collection
   end
 end

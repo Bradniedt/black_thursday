@@ -57,7 +57,7 @@ class TransactionRepositoryTest < Minitest::Test
                             } )
     assert_equal 5757575757575757, @transaction.find_by_id(1).credit_card_number
     assert_equal '0121', @transaction.find_by_id(1).credit_card_expiration_date
-    assert_equal 'failed', @transaction.find_by_id(1).result
+    assert_equal :failed, @transaction.find_by_id(1).result
   end
 
   def test_it_can_delete_a_transaction

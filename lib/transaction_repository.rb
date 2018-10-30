@@ -34,7 +34,7 @@ class TransactionRepository
       id: new_id,
       invoice_id: attributes[:invoice_id].to_i,
       credit_card_number: attributes[:credit_card_number].to_i,
-      credit_card_expiration_date: attributes[:credit_card_expiration_date].to_i,
+      credit_card_expiration_date: attributes[:credit_card_expiration_date].to_s,
       result: attributes[:result].to_sym,
       created_at: Time.now.to_s,
       updated_at: Time.now.to_s
@@ -46,15 +46,16 @@ class TransactionRepository
   def update(id, attributes)
     being_updated = find_by_id(id)
     if being_updated
-      if attributes.key?(:credit_card_number)
+      if attributes.has_key?(:credit_card_number)
         being_updated.credit_card_number = attributes[:credit_card_number].to_i
       end
-      if attributes.key?(:credit_card_expiration_date)
-        being_updated.credit_card_expiration_date = attributes[:credit_card_expiration_date]
+      if attributes.has_key?(:credit_card_expiration_date)
+        being_updated.credit_card_expiration_date = attributes[:credit_card_expiration_date].to_s
       end
-      if attributes.key?(:result)
+      if attributes.has_key?(:result)
         being_updated.result = attributes[:result].to_sym
       end
+      being_updated.updated_at = Time.now
     end
   end
 end

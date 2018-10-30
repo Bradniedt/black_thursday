@@ -238,6 +238,6 @@ class SalesAnalyst
     items_total.each do |total|
       final_total += total
     end
-    final_total
+    BigDecimal.new(final_total, final_total.to_s.length)
   end
 end
