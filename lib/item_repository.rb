@@ -52,16 +52,16 @@ class ItemRepository
 
   def update(id, attributes)
     if find_by_id(id)
-    if attributes.has_key?(:name)
-      find_by_id(id).name = attributes[:name]
-    end
-    if attributes.has_key?(:description)
-      find_by_id(id).description = attributes[:description]
-    end
-    if attributes.has_key?(:unit_price)
-      find_by_id(id).unit_price = attributes[:unit_price]
-    end
-    find_by_id(id).updated_at = Time.now
+      if attributes.has_key?(:name)
+        find_by_id(id).name = attributes[:name]
+      end
+      if attributes.has_key?(:description)
+        find_by_id(id).description = attributes[:description]
+      end
+      if attributes.has_key?(:unit_price)
+        find_by_id(id).unit_price = attributes[:unit_price]
+      end
+      find_by_id(id).updated_at = Time.now
     end
   end
 

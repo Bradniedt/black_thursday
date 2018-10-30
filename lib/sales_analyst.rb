@@ -155,8 +155,12 @@ class SalesAnalyst
   end
 
   def date_to_days(date)
-    days = { 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday',
-             4 => 'Thursday', 5 => 'Friday', 6 => 'Saturday',
+    days = { 1 => 'Monday',
+             2 => 'Tuesday',
+             3 => 'Wednesday',
+             4 => 'Thursday',
+             5 => 'Friday',
+             6 => 'Saturday',
              7 => 'Sunday' }
     day = Date.parse(date).cwday
     days[day]
@@ -175,7 +179,7 @@ class SalesAnalyst
                    'Saturday'   => 0,
                    'Sunday'     => 0 }
     @invoices.all.map do |invoice|
-      day = date_to_days(invoice.created_at)
+      day = date_to_days(invoice.created_at.to_s)
       days_count[day] += 1
     end
     days_count
@@ -195,7 +199,7 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-  top_days = total_days.map do |day, value|
+    top_days = total_days.map do |day, value|
       if total_days[day] - invoice_days_standard_deviation > average_days
         total_days.key(value)
       end
@@ -208,7 +212,7 @@ class SalesAnalyst
                      shipped: 0,
                      returned: 0 }
     @invoices.all.map do |invoice|
-      if invoice.status == status.to_s
+      if invoice.status == status
         status_count[status] += 1
       end
     end

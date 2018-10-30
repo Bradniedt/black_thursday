@@ -21,7 +21,7 @@ class InvoiceRepository
 
   def find_all_by_status(status)
     @collection.find_all do |element|
-      element.status.include?(status)
+      element.status == status
     end
   end
 
@@ -35,8 +35,8 @@ class InvoiceRepository
                                  customer_id: attributes[:customer_id],
                                  merchant_id: attributes[:merchant_id],
                                  status: attributes[:status],
-                                 created_at: attributes[:created_at],
-                                 updated_at: attributes[:updated_at]
+                                 created_at: Time.now.to_s,
+                                 updated_at: Time.now.to_s
                                 } )
     @collection << new_invoice
     new_invoice
@@ -48,6 +48,6 @@ class InvoiceRepository
         find_by_id(id).status = attributes[:status]
       end
       find_by_id(id).updated_at = Time.now
-    end 
+    end
   end
 end
