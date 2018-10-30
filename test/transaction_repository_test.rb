@@ -49,7 +49,7 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of Transaction, @transaction.create(attributes)
   end
 
-  def test_it_can_update_an_transaction
+  def test_it_can_update_a_transaction
     @transaction.update(1, {
                   credit_card_number: '5757575757575757',
                   credit_card_expiration_date: '0121',
