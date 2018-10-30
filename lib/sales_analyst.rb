@@ -9,7 +9,7 @@ class SalesAnalyst
     @merchants  = merchants
     @invoices = invoices
     @transactions = transactions
-    @invoice_items
+    @invoice_items = invoice_items
   end
 
   def count_all_items
@@ -231,8 +231,13 @@ class SalesAnalyst
     all_items = invoice_items.all.find_all do |invoice_item|
       invoice_item.invoice_id == invoice_id
     end
-    all_items.map do |invoice_item|
-      invoice.item.quantity * invoice_item.unit_price_to_dollars
+    items_total = all_items.map do |invoice_item|
+      (invoice_item.quantity * invoice_item.unit_price_to_dollars).round(2)
     end
+    final_total = 0
+    items_total.each do |total|
+      final_total += total
+    end
+    final_total
   end
 end
