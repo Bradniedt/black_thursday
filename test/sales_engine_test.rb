@@ -18,7 +18,8 @@ class SalesEngineTest < Minitest::Test
         :merchants      => './data/merchants.csv',
         :invoices       => './data/invoices.csv',
         :invoice_items  => './data/invoice_items.csv',
-        :transactions   => './data/transactions.csv'
+        :transactions   => './data/transactions.csv',
+        :customers      => './data/customers.csv'
                                 } )
   end
 
@@ -57,5 +58,9 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_create_transaction_repository
     assert_instance_of TransactionRepository, @se.transactions
+  end
+
+  def test_it_can_create_customer_repository
+    assert_instance_of CustomerRepository, @se.customers
   end
 end
