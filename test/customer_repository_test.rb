@@ -26,4 +26,12 @@ class CustomerRepositoryTest < Minitest::Test
   def test_it_can_find_by_id
     assert_instance_of Customer, @customer.find_by_id(3)
   end
+
+  def test_it_can_find_all_by_first_name
+    assert_equal 1, @customer.find_all_by_first_name('Joey').count
+  end
+
+  def test_it_can_find_all_by_last_name
+    assert_equal 2, @customer.find_all_by_last_name('Toy').count
+  end
 end
