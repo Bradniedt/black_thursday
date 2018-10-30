@@ -4,6 +4,7 @@ require_relative '../lib/sales_analyst'
 require_relative '../lib/invoice_repository'
 require_relative '../lib/invoice_item_repository'
 require_relative '../lib/transaction_repository'
+require_relative '../lib/customer_repository'
 require 'csv'
 class SalesEngine
   attr_reader :items,
@@ -11,13 +12,15 @@ class SalesEngine
               :analyst,
               :invoices,
               :invoice_items,
-              :transactions
+              :transactions,
+              :customers
   def initialize(data)
     @item_data = CSV.open(data[:items], headers: true, header_converters: :symbol)
     @merchant_data = CSV.open(data[:merchants], headers: true, header_converters: :symbol)
     @invoice_data = CSV.open(data[:invoices], headers: true, header_converters: :symbol)
     @invoice_item_data = CSV.open(data[:invoice_items], headers: true, header_converters: :symbol)
     @transaction_data  = CSV.open(data[:transactions], headers: true, header_converters: :symbol)
+    @customer_data = CSV.open(data[:customers], headers: true, header_converters: :symbol)
     @items_collection = []
     @merchants_collection = []
     @items      = ItemRepository.new(create_items)
@@ -26,6 +29,7 @@ class SalesEngine
     @analyst    = SalesAnalyst.new(@items, @merchants, @invoices)
     @invoice_items = InvoiceItemRepository.new(create_invoice_items)
     @transactions = TransactionRepository.new(create_transactions)
+    @customers = CustomerRepository.new(create_customers)
   end
 
   def self.from_csv(data)
@@ -104,5 +108,19 @@ class SalesEngine
                                                   } )
     end
     transaction_collection
+  end
+
+  def create_customers
+    customer_collection = []
+    @customer_data.each do |row|
+      customer_collection << Customer.new( {
+            id: row[:id].to_i,
+            first_name: row[:first_name].to_s,
+            last_name: row[:last_name].to_s,
+            created_at: row[:created_at].to_s,
+            updated_at: row[:updated_at].to_s
+                                            } )
+    end
+    customer_collection
   end
 end
