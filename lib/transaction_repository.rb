@@ -35,7 +35,7 @@ class TransactionRepository
       invoice_id: attributes[:invoice_id].to_i,
       credit_card_number: attributes[:credit_card_number].to_i,
       credit_card_expiration_date: attributes[:credit_card_expiration_date].to_i,
-      result: attributes[:result],
+      result: attributes[:result].to_sym,
       created_at: Time.now.to_s,
       updated_at: Time.now.to_s
                                    } )
@@ -53,7 +53,7 @@ class TransactionRepository
         being_updated.credit_card_expiration_date = attributes[:credit_card_expiration_date]
       end
       if attributes.key?(:result)
-        being_updated.result = attributes[:result]
+        being_updated.result = attributes[:result].to_sym
       end
     end
   end

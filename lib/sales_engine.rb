@@ -23,13 +23,13 @@ class SalesEngine
     @customer_data = CSV.open(data[:customers], headers: true, header_converters: :symbol)
     @items_collection = []
     @merchants_collection = []
-    @items      = ItemRepository.new(create_items)
-    @merchants  = MerchantRepository.new(create_merchants)
-    @invoices   = InvoiceRepository.new(create_invoices)
-    @analyst    = SalesAnalyst.new(@items, @merchants, @invoices)
-    @invoice_items = InvoiceItemRepository.new(create_invoice_items)
-    @transactions = TransactionRepository.new(create_transactions)
-    @customers = CustomerRepository.new(create_customers)
+    @items          = ItemRepository.new(create_items)
+    @merchants      = MerchantRepository.new(create_merchants)
+    @invoices       = InvoiceRepository.new(create_invoices)
+    @invoice_items  = InvoiceItemRepository.new(create_invoice_items)
+    @transactions   = TransactionRepository.new(create_transactions)
+    @customers      = CustomerRepository.new(create_customers)
+    @analyst        = SalesAnalyst.new(@items, @merchants, @invoices, @transactions)
   end
 
   def self.from_csv(data)
@@ -102,7 +102,7 @@ class SalesEngine
             invoice_id: row[:invoice_id].to_i,
             credit_card_number: row[:credit_card_number].to_s,
             credit_card_expiration_date: row[:credit_card_expiration_date].to_s,
-            result: row[:result].to_s,
+            result: row[:result].to_sym,
             created_at: row[:created_at].to_s,
             updated_at: row[:updated_at].to_s
                                                   } )
