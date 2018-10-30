@@ -11,6 +11,7 @@ class InvoiceTest < Minitest::Test
                       :updated_at  => '2007-06-04 21:35:10 UTC'
                       } )
   end
+  
   def test_invoice_exists
     assert_instance_of Invoice, @in
   end
@@ -32,14 +33,10 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_is_created_at_a_time
-    assert_equal '2016-01-11 09:34:06 UTC', @in.created_at
+    assert_equal '2016-01-11 09:34:06 UTC', @in.created_at.to_s
   end
 
   def test_it_is_updated_at_a_time
-    assert_equal '2007-06-04 21:35:10 UTC', @in.updated_at
+    assert_equal '2007-06-04 21:35:10 UTC', @in.updated_at.to_s
   end
-
-
-
-
 end
