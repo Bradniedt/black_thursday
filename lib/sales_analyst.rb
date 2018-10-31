@@ -240,4 +240,33 @@ class SalesAnalyst
     end
     BigDecimal.new(final_total, final_total.to_s.length)
   end
+
+  def top_merchant_for_customer(customer_id)
+    merchants_paid = Hash.new(0)
+    @invoices.find_all do |invoice|
+    if invoice.customer_id == customer_id
+      merchants_paid[invoice.merchant_id] += 1
+    end
+    end
+    require 'pry'; binding.pry 
+    merchants_paid.max
+  end
+  # def customers_spend
+  #   top_spenders = Hash.new(0)
+  #   successful_transactions = @transactions.all.find_all do |transaction|
+  #     transaction.result == :success
+  #   end
+  #   successful_transactions.map do |transaction|
+  #     id = transaction.invoice_id
+  #     total_by_id = invoice_total(id)
+  #     customer = @invoices.find_by_id(id).customer_id
+  #     # if top_spenders.has_key?(customer)
+  #       top_spenders[customer] += total_by_id
+  #     # else
+  #     #   top_spenders[customer] = total_by_id
+  #     # end
+  #   end
+  # end
+
+
 end
