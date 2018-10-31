@@ -10,7 +10,7 @@ class SalesAnalyst
     @invoices      = invoices
     @transactions  = transactions
     @invoice_items = invoice_items
-    @customers     = customers 
+    @customers     = customers
   end
 
   def count_all_items
@@ -260,26 +260,30 @@ class SalesAnalyst
   #   merchants_paid.max
   # end
 
-  def successful_transactions_by_customer
-    top_spenders = Hash.new(0)
-    successful_transactions = @transactions.all.find_all do |transaction|
-      transaction.result == :success
-    end
-    successful_transactions.map do |transaction|
-      id = transaction.invoice_id
-      total_by_id = invoice_total(id)
-      customer = @invoices.find_by_id(id).customer_id
-        top_spenders[customer] += total_by_id
-    end
-  end
-
-  def top_buyers(x)
-    top_spenders = successful_transactions_by_customer
-    greatest = top_spenders.max_by(x) do |spender, bigdecimal|
-      bigdecimal
-    end
-    greatest.map do |greats|
-      greats.customer_id
-  end
-
+  # def successful_transactions_by_customer
+  #   top_spenders = Hash.new(0)
+  #   successful_transactions = @transactions.all.find_all do |transaction|
+  #     transaction.result == :success
+  #   end
+  #   successful_transactions.map do |transaction|
+  #     id = transaction.invoice_id
+  #     total_by_id = invoice_total(id)
+  #     customer = @invoices.find_by_id(id).customer_id
+  #       top_spenders[customer] += total_by_id
+  #   end
+  #   top_spenders
+  # end
+  #
+  # def top_buyers(x)
+  #   top_spenders = successful_transactions_by_customer
+  #   greatest = top_spenders.sort_by do |key, value|
+  #     top_spenders[key]
+  #   end
+  #   greatest_customers = greatest.map do |greats|
+  #     @customers.find_by_id(greats[0])
+  #   end
+  #   require 'pry'; binding.pry
+  #   greatest_customers
+  #
+  # end
 end
