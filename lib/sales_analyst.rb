@@ -3,13 +3,14 @@ require 'bigdecimal'
 require 'mathn'
 require 'date'
 class SalesAnalyst
-  attr_reader     :items, :merchants, :invoices, :transactions, :invoice_items
-  def initialize(items, merchants, invoices, transactions, invoice_items)
-    @items      = items
-    @merchants  = merchants
-    @invoices = invoices
-    @transactions = transactions
+  attr_reader     :items, :merchants, :invoices, :transactions, :invoice_items, :customers
+  def initialize(items, merchants, invoices, transactions, invoice_items, customers )
+    @items         = items
+    @merchants     = merchants
+    @invoices      = invoices
+    @transactions  = transactions
     @invoice_items = invoice_items
+    @customers     = customers
   end
 
   def count_all_items
@@ -232,26 +233,34 @@ class SalesAnalyst
       invoice_item.invoice_id == invoice_id
     end
     items_total = all_items.map do |invoice_item|
-      (invoice_item.quantity * invoice_item.unit_price_to_dollars).round(2)
+      (invoice_item.quantity * invoice_item.unit_price).round(2)
     end
     final_total = 0
     items_total.each do |total|
       final_total += total
     end
-    BigDecimal.new(final_total, final_total.to_s.length)
+    BigDecimal.new(final_total, "#{final_total}".length - 1)
   end
 
-  def top_merchant_for_customer(customer_id)
-    merchants_paid = Hash.new(0)
-    @invoices.find_all do |invoice|
-    if invoice.customer_id == customer_id
-      merchants_paid[invoice.merchant_id] += 1
-    end
-    end
-    require 'pry'; binding.pry 
-    merchants_paid.max
-  end
-  # def customers_spend
+  # def top_merchant_for_customer(customer_id)
+  #   merchants_paid = Hash.new(0)
+  #   invoices_for_customer = Hash.new(0)
+  #
+  #   @invoices.all.find_all do |invoice|
+  #   if invoice.customer_id == customer_id
+  #     merchants_paid[invoice.merchant_id] += 1
+  #   end
+  #   end
+  #   merchant_array = merchants_paid.values
+  #   num = 0
+  #   merchant_array.any? do |merchant|
+  #     num += 1
+  #     merchant[num] != merchant[num + 1]
+  #   end
+  #   merchants_paid.max
+  # end
+
+  # def successful_transactions_by_customer
   #   top_spenders = Hash.new(0)
   #   successful_transactions = @transactions.all.find_all do |transaction|
   #     transaction.result == :success
@@ -260,13 +269,21 @@ class SalesAnalyst
   #     id = transaction.invoice_id
   #     total_by_id = invoice_total(id)
   #     customer = @invoices.find_by_id(id).customer_id
-  #     # if top_spenders.has_key?(customer)
   #       top_spenders[customer] += total_by_id
-  #     # else
-  #     #   top_spenders[customer] = total_by_id
-  #     # end
   #   end
+  #   top_spenders
   # end
-
-
+  #
+  # def top_buyers(x)
+  #   top_spenders = successful_transactions_by_customer
+  #   greatest = top_spenders.sort_by do |key, value|
+  #     top_spenders[key]
+  #   end
+  #   greatest_customers = greatest.map do |greats|
+  #     @customers.find_by_id(greats[0])
+  #   end
+  #   require 'pry'; binding.pry
+  #   greatest_customers
+  #
+  # end
 end
