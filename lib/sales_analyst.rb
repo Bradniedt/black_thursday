@@ -3,13 +3,14 @@ require 'bigdecimal'
 require 'mathn'
 require 'date'
 class SalesAnalyst
-  attr_reader     :items, :merchants, :invoices, :transactions, :invoice_items
-  def initialize(items, merchants, invoices, transactions, invoice_items)
-    @items      = items
-    @merchants  = merchants
-    @invoices = invoices
-    @transactions = transactions
+  attr_reader     :items, :merchants, :invoices, :transactions, :invoice_items, :customers
+  def initialize(items, merchants, invoices, transactions, invoice_items, customers )
+    @items         = items
+    @merchants     = merchants
+    @invoices      = invoices
+    @transactions  = transactions
     @invoice_items = invoice_items
+    @customers     = customers 
   end
 
   def count_all_items
@@ -241,17 +242,25 @@ class SalesAnalyst
     BigDecimal.new(final_total, "#{final_total}".length - 1)
   end
 
-  def top_merchant_for_customer(customer_id)
-    merchants_paid = Hash.new(0)
-    @invoices.all.find_all do |invoice|
-    if invoice.customer_id == customer_id
-      merchants_paid[invoice.merchant_id] += 1
-    end
-    end
-    merchants_paid.max
-  end
+  # def top_merchant_for_customer(customer_id)
+  #   merchants_paid = Hash.new(0)
+  #   invoices_for_customer = Hash.new(0)
+  #
+  #   @invoices.all.find_all do |invoice|
+  #   if invoice.customer_id == customer_id
+  #     merchants_paid[invoice.merchant_id] += 1
+  #   end
+  #   end
+  #   merchant_array = merchants_paid.values
+  #   num = 0
+  #   merchant_array.any? do |merchant|
+  #     num += 1
+  #     merchant[num] != merchant[num + 1]
+  #   end
+  #   merchants_paid.max
+  # end
 
-  def customers_spend
+  def successful_transactions_by_customer
     top_spenders = Hash.new(0)
     successful_transactions = @transactions.all.find_all do |transaction|
       transaction.result == :success
@@ -260,13 +269,17 @@ class SalesAnalyst
       id = transaction.invoice_id
       total_by_id = invoice_total(id)
       customer = @invoices.find_by_id(id).customer_id
-      # if top_spenders.has_key?(customer)
         top_spenders[customer] += total_by_id
-      # else
-      #   top_spenders[customer] = total_by_id
-      # end
     end
   end
 
+  def top_buyers(x)
+    top_spenders = successful_transactions_by_customer
+    greatest = top_spenders.max_by(x) do |spender, bigdecimal|
+      bigdecimal
+    end
+    greatest.map do |greats|
+      greats.customer_id
+  end
 
 end
