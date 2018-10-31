@@ -98,9 +98,17 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 31075.11, @se.analyst.invoice_total(2179)
   end
 
-  def test_it_can_return_top_buyers
-    assert_equal 5, @se.analyst.top_buyer(5).length
-    assert_equal 313, @se.analyst.top_buyers(5).first.id
-    assert_equal 478, @se.analyst.top_buyers(5).last.id
+  # def test_it_can_separate_customers_spending
+  #   assert_equal 965, @se.analyst.customers_spend.count
+  # end
+
+  # def test_it_can_return_top_buyers
+  #   assert_equal 5, @se.analyst.top_buyer(5).length
+  #   assert_equal 313, @se.analyst.top_buyers(5).first.id
+  #   assert_equal 478, @se.analyst.top_buyers(5).last.id
+  # end
+
+  def test_it_can_find_top_merchant_for_customer
+    assert_equal "merchant", @se.analyst.top_merchant_for_customer(100)
   end
 end
