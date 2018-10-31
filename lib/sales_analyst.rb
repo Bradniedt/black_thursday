@@ -232,41 +232,41 @@ class SalesAnalyst
       invoice_item.invoice_id == invoice_id
     end
     items_total = all_items.map do |invoice_item|
-      (invoice_item.quantity * invoice_item.unit_price_to_dollars).round(2)
+      (invoice_item.quantity * invoice_item.unit_price).round(2)
     end
     final_total = 0
     items_total.each do |total|
       final_total += total
     end
-    BigDecimal.new(final_total, final_total.to_s.length)
+    BigDecimal.new(final_total, "#{final_total}".length - 1)
   end
 
   def top_merchant_for_customer(customer_id)
     merchants_paid = Hash.new(0)
-    @invoices.find_all do |invoice|
+    @invoices.all.find_all do |invoice|
     if invoice.customer_id == customer_id
       merchants_paid[invoice.merchant_id] += 1
     end
     end
-    require 'pry'; binding.pry 
     merchants_paid.max
   end
-  # def customers_spend
-  #   top_spenders = Hash.new(0)
-  #   successful_transactions = @transactions.all.find_all do |transaction|
-  #     transaction.result == :success
-  #   end
-  #   successful_transactions.map do |transaction|
-  #     id = transaction.invoice_id
-  #     total_by_id = invoice_total(id)
-  #     customer = @invoices.find_by_id(id).customer_id
-  #     # if top_spenders.has_key?(customer)
-  #       top_spenders[customer] += total_by_id
-  #     # else
-  #     #   top_spenders[customer] = total_by_id
-  #     # end
-  #   end
-  # end
+
+  def customers_spend
+    top_spenders = Hash.new(0)
+    successful_transactions = @transactions.all.find_all do |transaction|
+      transaction.result == :success
+    end
+    successful_transactions.map do |transaction|
+      id = transaction.invoice_id
+      total_by_id = invoice_total(id)
+      customer = @invoices.find_by_id(id).customer_id
+      # if top_spenders.has_key?(customer)
+        top_spenders[customer] += total_by_id
+      # else
+      #   top_spenders[customer] = total_by_id
+      # end
+    end
+  end
 
 
 end

@@ -98,9 +98,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 31075.11, @se.analyst.invoice_total(2179)
   end
 
-  # def test_it_can_separate_customers_spending
-  #   assert_equal 965, @se.analyst.customers_spend.count
-  # end
+  def test_it_can_separate_customers_spending
+    assert_equal 4158, @se.analyst.customers_spend.count
+  end
 
   # def test_it_can_return_top_buyers
   #   assert_equal 5, @se.analyst.top_buyer(5).length
