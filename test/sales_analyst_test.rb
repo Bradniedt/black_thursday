@@ -97,4 +97,10 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_return_an_invoice_total
     assert_equal 31075.11, @se.analyst.invoice_total(2179)
   end
+
+  def test_it_can_return_top_buyers
+    assert_equal 5, @se.analyst.top_buyer(5).length
+    assert_equal 313, @se.analyst.top_buyers(5).first.id
+    assert_equal 478, @se.analyst.top_buyers(5).last.id
+  end
 end
