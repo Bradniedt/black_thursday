@@ -104,6 +104,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 21067.77, @se.analyst.total_revenue_by_date(date)
   end
 
+  def test_it_can_find_top_revenue_earners
+    assert_equal 10, @se.analyst.top_revenue_earners(10).count
+    assert_equal 12334634, @se.analyst.top_revenue_earners(10).first.id
+    assert_equal 12335747, @se.analyst.top_revenue_earners(10).last.id
+  end
+
   # def test_it_can_separate_sucessful_transactions_by_customer
   #   assert_equal 835, @se.analyst.successful_transactions_by_customer.count
   # end

@@ -253,6 +253,21 @@ class SalesAnalyst
     incrementor
   end
 
+  # def top_revenue_earners(x)
+  #   top_earners = Hash.new(0)
+  #   successful_transactions = @transactions.all.find_all do |transaction|
+  #     transaction.result == :success
+  #   end
+  #   successful_transactions.map do |transaction|
+  #     id =  transaction.invoice_id
+  #     total_by_id = invoice_total(id)
+  #     merchant = @invoices.find_by_id(id).merchant_id
+  #       top_earners[merchant] += total_by_id
+  #   end
+  #   require 'pry';binding.pry
+  #   top_earners(0..x)
+  # end
+
   # def top_merchant_for_customer(customer_id)
   #   merchants_paid = Hash.new(0)
   #   invoices_for_customer = Hash.new(0)
