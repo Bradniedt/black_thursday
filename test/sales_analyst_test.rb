@@ -1,4 +1,5 @@
 require_relative './helper'
+require 'time'
 require_relative '../lib/sales_engine'
 class SalesAnalystTest < Minitest::Test
   def setup
@@ -96,6 +97,17 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_return_an_invoice_total
     assert_equal 31075.11, @se.analyst.invoice_total(2179)
+  end
+
+  def test_it_can_find_total_revenue_by_date
+    date = Time.parse("2009-02-07")
+    assert_equal 21067.77, @se.analyst.total_revenue_by_date(date)
+  end
+
+  def test_it_can_find_top_revenue_earners
+    assert_equal 10, @se.analyst.top_revenue_earners(10).count
+    assert_equal 12334634, @se.analyst.top_revenue_earners(10).first.id
+    assert_equal 12335747, @se.analyst.top_revenue_earners(10).last.id
   end
 
   # def test_it_can_separate_sucessful_transactions_by_customer
