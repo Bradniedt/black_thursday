@@ -2,6 +2,7 @@ require_relative '../lib/sales_engine'
 require 'bigdecimal'
 require 'mathn'
 require 'date'
+require 'time'
 class SalesAnalyst
   attr_reader     :items, :merchants, :invoices, :transactions, :invoice_items, :customers
   def initialize(items, merchants, invoices, transactions, invoice_items, customers )
@@ -240,6 +241,29 @@ class SalesAnalyst
       final_total += total
     end
     BigDecimal.new(final_total, "#{final_total}".length - 1)
+  end
+
+  def all_successful_transactions
+    @transactions.all.find_all do |transaction|
+      transaction.result == :success
+    end
+  end
+
+  def successful_dates(date)
+    all_invoices = all_successful_transactions.find_all do |transaction|
+      @invoices.find_by_id(transaction.invoice_id)
+    end
+    all_invoices.find_all do |invoice|
+      invoice.created_at.to_s.slice(0..9) == date.to_s.slice(0..9)
+    end
+    # total_revenue = 0
+    # all_invoices = by_date.map do |transaction|
+    #   @invoices.find_by_id(transaction.invoice_id)
+    # end
+    # all_invoices.each do |invoice|
+    #   total_revenue += invoice_total(invoice.id)
+    # end
+    # total_revenue
   end
 
   # def top_merchant_for_customer(customer_id)
