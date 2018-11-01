@@ -252,7 +252,7 @@ class SalesAnalyst
     end
     incrementor
   end
-
+  # 
   # def top_revenue_earners(x)
   #   top_earners = Hash.new(0)
   #   successful_transactions = @transactions.all.find_all do |transaction|
@@ -264,8 +264,10 @@ class SalesAnalyst
   #     merchant = @invoices.find_by_id(id).merchant_id
   #       top_earners[merchant] += total_by_id
   #   end
-  #   require 'pry';binding.pry
-  #   top_earners(0..x)
+  #   last_ten = top_earners.sort_by do |top|
+  #     top[1]
+  #   end
+  #   last_ten.reverse[0..(x - 1)]
   # end
 
   # def top_merchant_for_customer(customer_id)
