@@ -243,33 +243,15 @@ class SalesAnalyst
     BigDecimal.new(final_total, "#{final_total}".length - 1)
   end
 
-  def all_successful_transactions
-    @transactions.all.find_all do |transaction|
-      transaction.result == :success
+  def total_revenue_by_date(date)
+    incrementor = 0
+    @invoices.all.find_all do |invoice|
+      if invoice.created_at.strftime('%F') == date.strftime('%F')
+        incrementor += invoice_total(invoice.id)
+      end
     end
+    incrementor
   end
-
-  def id_by_successful_transactions
-    all_successful_transactions.find_all do |transaction|
-      @invoices.find_by_id(transaction.invoice_id)
-    end
-  end
-
-  # def total_revenue_by_date(date)
-  #   id_by_successful_transactions.find_all do |invoice|
-  #     if invoice.created_at.to_s.slice(0..9) == date.to_s.slice(0..9)
-  #       invoice_total(date)
-  #     end
-  #   end
-  #   total_revenue = 0
-  #   all_invoices = by_date.map do |transaction|
-  #     @invoices.find_by_id(transaction.invoice_id)
-  #   end
-  #   all_invoices.each do |invoice|
-  #     total_revenue += invoice_total(invoice.id)
-  #   end
-  #   total_revenue
-  # end
 
   # def top_merchant_for_customer(customer_id)
   #   merchants_paid = Hash.new(0)

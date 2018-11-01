@@ -99,12 +99,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 31075.11, @se.analyst.invoice_total(2179)
   end
 
-  def test_it_can_id_by_successful_transactions
-    assert_equal 4158, @se.analyst.id_by_successful_transactions.count
-  end
-
   def test_it_can_find_total_revenue_by_date
-    assert_equal 4158, @se.analyst.all_successful_transactions.count
     date = Time.parse("2009-02-07")
     assert_equal 21067.77, @se.analyst.total_revenue_by_date(date)
   end
